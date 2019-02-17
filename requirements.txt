@@ -2,3 +2,6 @@ pytest
 pylama
 pytest-cov
 flake8-eradicate
+numpy
+pandas
+scipy
