@@ -5,3 +5,6 @@ flake8-eradicate
 numpy
 pandas
 scipy
+# sklearn  # hold off until we need this
+statsmodels
+matplotlib
