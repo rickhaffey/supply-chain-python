@@ -8,3 +8,4 @@ scipy
 # sklearn  # hold off until we need this
 statsmodels
 matplotlib
+pyomo

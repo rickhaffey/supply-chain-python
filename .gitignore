@@ -258,3 +258,6 @@ dmypy.json
 
 SC1x/midterm.py
 
+# exclude the solvers downloaded from AMPL, etc.
+
+solvers
