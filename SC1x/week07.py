@@ -136,16 +136,158 @@ class Triangle:
         return c_new, loc, scale
 
 
-print(TriangleManual.mean(10, 80, 30))
-print(Triangle.mean(10, 80, 30))
+# print(TriangleManual.mean(10, 80, 30))
+# print(Triangle.mean(10, 80, 30))
+#
+# print(TriangleManual.var(10, 80, 30))
+# print(Triangle.var(10, 80, 30))
+#
+# print(TriangleManual.pdf(40, 10, 80, 30))
+# print(Triangle.pdf(40, 10, 80, 30))
+#
+# print(TriangleManual.cdf(40, 10, 80, 30))
+# print(Triangle.cdf(40, 10, 80, 30))
+#
+# print(Triangle.cdf(10, 15, 80, 30))
 
-print(TriangleManual.var(10, 80, 30))
-print(Triangle.var(10, 80, 30))
+def critical_ratio(shortage_cost, excess_cost):
+    return shortage_cost / (shortage_cost + excess_cost)
 
-print(TriangleManual.pdf(40, 10, 80, 30))
-print(Triangle.pdf(40, 10, 80, 30))
 
-print(TriangleManual.cdf(40, 10, 80, 30))
-print(Triangle.cdf(40, 10, 80, 30))
+class Zahara:
+    def __init__(self):
+        self.sale_price = 120
+        self.cost = 48
+        self.salvage_rate = 1 / 3
 
-print(Triangle.cdf(10, 15, 80, 30))
+        # demand
+        self.demand_mu = 375
+        self.demand_sigma = 220
+
+
+def pp_zahara_part1():
+    z = Zahara()
+    cs = z.sale_price - z.cost
+    ce = z.cost - (z.sale_price * z.salvage_rate)
+
+    print(critical_ratio(cs, ce))
+
+
+def pp_zahara_part2():
+    from scipy.stats import norm
+    z = Zahara()
+
+    cr = 0.9  # from part 1
+    print(norm.ppf(q=cr, loc=z.demand_mu, scale=z.demand_sigma))
+
+
+def pp_zahara_part3():
+    from scipy.stats import norm
+    z = Zahara()
+
+    cr = 0.9  # from part 1
+    k = norm.ppf(cr)
+    G_k = norm.pdf(k) - k * (1 - norm.cdf(k))
+    expected_short = G_k * z.demand_sigma
+    expected_sold = z.demand_mu - expected_short
+    print("E[units sold]: {}".format(expected_sold))
+    print("E[units short]: {}".format(expected_short))
+
+
+def expected_profit():
+    pass
+
+
+def pp_zahara_part4():
+    # E[units_sold] = E[demand] - E[units short]
+    # component 1 (cmp1):
+    #   price * E[units_sold]
+    # component 2 (cmp2):
+    #   cost * Q
+    # component 3 (cmp3):
+    #   g * (Q - E[units_sold])
+    # component 4 (cmp4):
+    #   B * E[units short]
+
+    # profit = cmp1 - cmp2 + cmp3 - cmp4
+    z = Zahara()
+
+    e_demand = z.demand_mu
+    e_short = 10.41549858316587
+    e_sold = e_demand - e_short
+    price = z.sale_price
+    cost = z.cost
+
+    Q = 656.9413444198121
+    g = z.sale_price * z.salvage_rate
+    B = 0  # no penalty
+
+    profit = (price * e_sold) - (cost * Q) + (g * (Q - e_sold)) - (B * e_short)
+    print("profit: {}".format(profit))
+
+
+def pp_zahara_part7():
+    z = Zahara()
+    a = 50
+    b = 1000
+    c = 75
+
+    loc = a
+    scale = b - loc
+    c_new = (c - loc) / scale
+
+    cr = 0.9  # from part 1
+
+    print(triang.ppf(cr, c=c_new, loc=loc, scale=scale))
+
+
+def pp_zahara_part8_a(Q=704):
+    from scipy.stats import triang
+
+    a = 50
+    b = 1000
+    c = 75
+
+    loc = a
+    scale = b - loc
+    c_new = (c - loc) / scale
+
+    expected_short = (1/3) * ((b - Q)**3) / ((b - a) * (b - c))
+
+    mu = triang.mean(c_new, loc=loc, scale=scale)
+    expected_sold = mu - expected_short
+
+    print("E[demand]: {}".format(mu))
+    print("E[units sold]: {}".format(expected_sold))
+    print("E[units short]: {}".format(expected_short))
+
+def pp_zahara_part8_b(Q = 704, e_short=9.83758596491228):
+    # E[units_sold] = E[demand] - E[units short]
+    # component 1 (cmp1):
+    #   price * E[units_sold]
+    # component 2 (cmp2):
+    #   cost * Q
+    # component 3 (cmp3):
+    #   g * (Q - E[units_sold])
+    # component 4 (cmp4):
+    #   B * E[units short]
+
+    # profit = cmp1 - cmp2 + cmp3 - cmp4
+    z = Zahara()
+
+    e_demand = 375
+    e_sold = e_demand - e_short
+    price = z.sale_price
+    cost = z.cost
+
+    g = z.sale_price * z.salvage_rate
+    B = 0  # no penalty
+
+    profit = (price * e_sold) - (cost * Q) + (g * (Q - e_sold)) - (B * e_short)
+    print("profit: {}".format(profit))
+
+
+pp_zahara_part8_b()
+pp_zahara_part8_b(657, 15.307200379326694)
+
+print(23580.993122807013 - 23519.423969653868)
