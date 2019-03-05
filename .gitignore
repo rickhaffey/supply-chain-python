@@ -256,8 +256,13 @@ dmypy.json
 
 .idea/
 
-SC1x/midterm.py
-
 # exclude the solvers downloaded from AMPL, etc.
 
 solvers
+
+
+# exclude graded assignments
+
+SC1x/midterm.py
+SC1x/week07_GA01.py
+SC1x/week07_GA02.py
