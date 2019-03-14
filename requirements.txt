@@ -9,3 +9,5 @@ scipy
 statsmodels
 matplotlib
 pyomo
+jupyter
+ipykernel
