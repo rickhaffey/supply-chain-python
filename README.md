@@ -37,8 +37,3 @@ jupyter notebook
 * including coverage:
 
 `pytest --pylama --cov=. --tb=short`
-
-
-## TODO
-
-* [ ] move all data files to S3, with script to pull them down, rather than including in git repo
