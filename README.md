@@ -41,5 +41,4 @@ jupyter notebook
 
 ## TODO
 
-* package / module 
-
+* [ ] move all data files to S3, with script to pull them down, rather than including in git repo
