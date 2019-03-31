@@ -5,15 +5,15 @@ from validation import Validate as v
 # Stochastic Demand
 
 # - assumptions: demand, excess demand, planning horizon
-# - inventory charts
+# - inventorypolicies charts
 # - deterministic vs stochastic
 # -
 
 
 ## Three Questions
 
-# 1. How much inventory on hand (IOH) do I need so P[SO] <= some target service level?
-# 2. If I have a certain amount of inventory on hand, X, what is my P[SO]?
+# 1. How much inventorypolicies on hand (IOH) do I need so P[SO] <= some target service level?
+# 2. If I have a certain amount of inventorypolicies on hand, X, what is my P[SO]?
 # 3. Given a target service level or IOH, how many units do I expect to sell or be short?
 
 ## Demand Distributions
