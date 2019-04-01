@@ -18,18 +18,22 @@ def format(k):
 def build_df():
     ks = np.linspace(start=-3.99, stop=3.99, num=799)
     probabilities = {format(k): norm.cdf(k) for k in ks}
-    losses = {k: g(k) for k in ks}
+    losses = {format(k): g(k) for k in ks}
+    raw_k = {format(k): k for k in ks}
 
     result = pd.DataFrame(data={
         "P[u<k]": probabilities,
-        "G(k)": losses
+        "G(k)": losses,
+        "raw_k": raw_k
     })
     result.index.name = "k"
+    result.sort_values(by='raw_k', inplace=True)
+    result.drop(labels='raw_k', axis=1, inplace=True)
     return result
 
 
 def find_g_k(df, k):
-    return df.loc[k]['G(k)']
+    return df.loc[format(k)]['G(k)']
 
 
 def find_k_from_g_k(df, g_k):
@@ -52,7 +56,7 @@ df = build_df()
 # print(df)
 
 
-print(find_k_from_g_k(df, 0.991370))
-# print(find_g_k(df, -0.88))
-# TODO: using float as index on df is problematic, but also
-#  need a mechanism for sorting index values (lt/gt) numerically
+print(find_k_from_g_k(df, 0.99228508))
+print(find_g_k(df, -0.885))
+
+
