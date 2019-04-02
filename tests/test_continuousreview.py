@@ -1,4 +1,4 @@
-from inventorypolicies.sqpolicy import SQPolicy
+from inventorypolicies.continuousreview import SQPolicy
 import pytest
 
 
